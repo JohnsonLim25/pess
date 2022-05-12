@@ -11,7 +11,7 @@
 <?php require_once 'nav.php'; ?>
  <br><br>
  <?php 
- if (!isset($_POST["btnSearch"])) {
+ if (!isset($_POST["btnSearch"])){
  ?>
  <!-- create a form to search for patrol car based on id -->
  <form name="form1" method="post"
@@ -35,23 +35,24 @@ else
 {
     require_once 'db.php';
 
-    //create database connection 
+    // create database connection 
     $conn = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
     // Check connection 
-    if($conn->connect_error) {
+    if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
 
-    //retrieve patrol car detail
-    $sql = "SELECT * FROM patrolcar WHERE patrolcar_id= '" .$_POST['patrolCarId']."'";
+    // retrieve patrol car detail
+    $sql = "SELECT * FROM patrolcar WHERE patrolcar_id= '" .$_POST['patrolCarId'].
+    "'";
     $result = $conn->query($sql);
 
     // if the patrol car does not exist, redirect back to update.php
     if ($result->num_rows == 0) {
           ?>
           <script type="text/javascript">window.location="./update.php";</script>
-    <?php }
+        <?php }
     // else if the patrol car found
     while($row = $result->fetch_assoc()) {
         $patrolCarId = $row['patrolcar_id'];
@@ -59,7 +60,7 @@ else
     }
 
     //retrieve from patrolcar_status table for populating the combo box
-    $sql = "SELECT *FROM patrolcar_status";
+    $sql = "SELECT * FROM patrolcar_status";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -69,7 +70,7 @@ else
         }
     }
 
-    while ($row = $result ->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $patrolCarStatusArray[$row['patrolcar_status_id']] = $row[
         'patrolcar_status_desc'];
         
@@ -124,6 +125,7 @@ if (isset($_POST["btnUpdate"])) {
     if($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+
     //update patrol car status
     $sql = "UPDATE patrolcar SET patrolcar_status_id= '".$_POST['patrolCarStatus']."' WHERE patrolcar_id = '".$_POST[
     'patrolCarId']."'";
@@ -132,8 +134,7 @@ if (isset($_POST["btnUpdate"])) {
     }
     /*if patrol car status is Arrived (4) then capture the time of arrival */
     if($_POST["patrolCarStatus"] == '4'){
-        $sql = "UPDATE dispatch SET time_arrived = NOW() WHERE time_arrived is NULL and patrolcar_id = '".$_POST['patrolCarId'
-        ]."'";
+        $sql = "UPDATE dispatch SET time_arrived = NOW() WHERE time_arrived is NULL and patrolcar_id = '".$_POST['patrolCarId']."'";
             if ($conn->query($sql) === FALSE) {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
@@ -148,22 +149,21 @@ if (isset($_POST["btnUpdate"])) {
                 }
             }
             //next update dispatch table
-            $sql = "UPDATE dispatch SET time_completed = NOW() WHERE time completed is NULL AND patrolcar_id = '".$_POST[
-            'patrolCarId']."'";
+            $sql = "UPDATE dispatch SET time_completed = NOW() WHERE time_completed is NULL AND patrolcar_id = '".$_POST['patrolCarId']."'";
             if($conn->query($sql)===FALSE) {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
-            /*update incident table as completed (3) all patrol car attended to ut are FREE now */
+            /*update incident table as completed (3) all patrol car attended to it are FREE now */
             $sql = "UPDATE incident SET incident_status_id = '3' WHERE incident_id = '$incidentId' AND NOT EXISTS (SELECT * FROM
-            dispatch WHERE time_completed IS NULL AND incident_id = 'incidentId')";
+            dispatch WHERE time_completed IS NULL AND incident_id = '$incidentId')";
             if ($conn->query($sql)===FALSE) {
                 echo "Error: " .$sql . "<br>". $conn->error;
             }
         } 
         $conn->close();
         ?>
-
-<script type="text/javascript">window.location"./logcall.php";</script>  
+<!--- -->
+<script type="text/javascript">window.location="./logcall.php";</script>  
 <?php } ?>
 
 

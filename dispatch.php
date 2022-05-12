@@ -81,9 +81,11 @@ if(!isset($_POST["btnProcessCall"]) && !isset($_POST["btnDispatch"]))
 <!-- populate table with patrol car data -->
 <table class="ContentStyle">
   <tr>
-  <td colspan="3">Dispatch Patrolcar Panel</td>
+  <td colspan="3" id="Dispatch">Dispatch Patrolcar Panel</td>
   </tr>
   <?php
+    if($result ->num_rows > 0)
+    {
     foreach($patrolcarArray as $key=>$value) {
   ?>
   <tr>
@@ -92,7 +94,20 @@ if(!isset($_POST["btnProcessCall"]) && !isset($_POST["btnDispatch"]))
     <td><?php echo $key ?></td>
     <td><?php echo $value ?></td>
   </tr> 
-  <?php  }   ?>
+  <?php  } ?>
+  <?php }
+  else 
+  {
+      echo 'There are no available patrol cars to disptach.';
+      die($conn->connect_error);
+      echo '<td colspan="3" id="Dispatch" style="color:white;">Dispatch Patrolcar Panel</td>';   
+  } ?>
+ 
+  
+  
+
+  
+ 
   <tr>
     <td><input type="reset" name="btnCancel" id="btnCancel" value="Reset"></td>
     <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit"
@@ -152,7 +167,7 @@ if (isset($_POST["btnDispatch"]))
         }
         
     }
-
+    
     $conn->close();
 ?>
 <!-- After dispatching, redirect to logcall.php -->

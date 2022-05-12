@@ -47,6 +47,7 @@ function validateForm()
 </script>
 </head>
 <body>
+
 <?php //import nav.php
 require_once 'nav.php';
 ?>
@@ -72,7 +73,6 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-
 <form name = "frmLogCall" method="POST"
  onSubmit="return validateForm()" action="dispatch.php">
  <table class="ContentStyle">

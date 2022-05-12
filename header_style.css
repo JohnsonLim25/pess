@@ -17,7 +17,8 @@
       }
     #HeaderStyle a {
       float:left;
-      background:url("images/tableft21.gif") no-repeat left top;
+      background:	#FF8000 left top;
+      border-radius:15px ;
       margin:0;
       padding:0 0 0 5px;
       text-decoration:none;
@@ -25,19 +26,23 @@
     #HeaderStyle a span {
       float:left;
       display:block;
-      background:url("images/tabright21.gif") no-repeat right top;
+      background:#FF8000 left top;
+      border-radius:15px ;
       padding:5px 15px 4px 6px;
       color:#FFF;
       }
     /* Commented Backslash Hack hides rule from IE5-Mac \*/
-    #HeaderStyle a span {float:none;}
+    #HeaderStyle a span {float:left;}
     /* End IE5-Mac hack */
     #HeaderStyle a:hover span {
+      background:#146acd;
+      margin:0;
+      padding:5px 15px 4px 6px;
       color:#FFF;
       }
     #HeaderStyle a:hover {
       background-position:0% -42px;
       }
     #HeaderStyle a:hover span {
-      background-position:100% -42px;
+      background-position:0% -42px;
       }
