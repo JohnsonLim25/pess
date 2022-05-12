@@ -1,5 +1,4 @@
-<h1>Police Emergency Service System</h1>
-
+<h1 style="color:#185398;">Police Emergency Service System</h1>
 <nav id="HeaderStyle">
     <ul>
         <li><a href="logcall.php"><span>Log Call</span></a></li>
